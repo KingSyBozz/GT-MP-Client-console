@@ -1,0 +1,8 @@
+<meta>
+
+	<info name="Client console" description="An ingame console for the clients." author="SyBozz" version="1.0" type="script" shadowcopy="true" async="true" />
+	
+	<script src="release/console.dll" type="server" lang="compiled" />
+	<script src="release/Client.js" type="client" lang="javascript" />
+
+</meta>

@@ -1,0 +1,16 @@
+{
+  "compilerOptions": {
+    "alwaysStrict": true,
+    "noImplicitAny": false,
+    "noEmitOnError": false,
+    "removeComments": true,
+    "sourceMap": false,
+    "target": "es6",
+    "module": "system",
+    "outFile": "release/Client.js"
+  },
+  "include": [
+    "src/Client/**/*"
+  ],
+  "compileOnSave": true
+}
