@@ -6,18 +6,18 @@ using SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands;
 
 namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Console
 {
-	internal class ConsoleHandler : Script
-	{
-	    internal static Dictionary<Client, bool> enabledConsoleForClient = new Dictionary<Client, bool>();
-	    internal static bool enableConsole = true;
+    internal class ConsoleHandler : Script
+    {
+        internal static Dictionary<Client, bool> enabledConsoleForClient = new Dictionary<Client, bool>();
+        internal static bool enableConsole = true;
 
         public ConsoleHandler()
-		{
-			API.onClientEventTrigger += OnClientEventTriggerHandler;
-		}
+        {
+            API.onClientEventTrigger += OnClientEventTriggerHandler;
+        }
 
-		private static void OnClientEventTriggerHandler(Client player, string eventName, object[] args)
-		{
+        private static void OnClientEventTriggerHandler(Client player, string eventName, object[] args)
+        {
             switch (eventName)
             {
                 case "console_client_function_executeCommand":
@@ -33,12 +33,12 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Console
         }
 
         internal static void ClientConsolePrintCmdError(Client player, string command)
-		{
-			API.shared.triggerClientEvent(player, "console_client_function_printCmdError", command);
-		}
+        {
+            API.shared.triggerClientEvent(player, "console_client_function_printCmdError", command);
+        }
 
-		internal static MessageFormat LogCatToString(LogCat category)
-		{
+        internal static MessageFormat LogCatToString(LogCat category)
+        {
             switch (category)
             {
                 case LogCat.Info:
@@ -60,14 +60,14 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Console
     }
 
     internal class MessageFormat
-	{
-		public string Prefix;
-		public string Color;
+    {
+        public string Prefix;
+        public string Color;
 
-		public MessageFormat(string prefix, string color)
-		{
-			Prefix = prefix;
-			Color = color;
-		}
-	}
+        public MessageFormat(string prefix, string color)
+        {
+            Prefix = prefix;
+            Color = color;
+        }
+    }
 }

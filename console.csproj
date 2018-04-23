@@ -38,6 +38,9 @@
     <Reference Include="GrandTheftMultiplayer.Shared, Version=0.0.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>packages\grandtheftmultiplayer.api.0.1.798.592\lib\net452\GrandTheftMultiplayer.Shared.dll</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\GT-MP-Server\Console\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
@@ -70,6 +73,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="src\Client\Console.d.ts" />
     <Content Include="src\Client\Console.ts" />
+    <Content Include="src\Client\ConAPI.ts" />
     <Content Include="src\Client\types-gt-mp\Declarations.d.ts" />
     <Content Include="src\Client\types-gt-mp\GrandTheftMultiplayer.Client.Contracts.d.ts" />
     <Content Include="src\Client\types-gt-mp\GrandTheftMultiplayer.Client.GUI.CEF.d.ts" />
@@ -98,9 +102,6 @@
     <Content Include="src\Client\types-gt-mp\System.d.ts" />
     <Content Include="src\Client\types-gt-mp\System.Drawing.d.ts" />
     <Content Include="src\Client\types-gt-mp\System.Windows.Forms.d.ts" />
-  </ItemGroup>
-  <ItemGroup>
-    <TypeScriptCompile Include="src\Client\ConAPI.ts" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
