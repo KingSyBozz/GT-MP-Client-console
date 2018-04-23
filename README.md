@@ -1,6 +1,6 @@
 # GT-MP-Client-console
 
-This resource add a console for the client.
+This resource adds a console for the client.
 
 ![Imgur](https://i.imgur.com/oYWZbfk.jpg)
 
@@ -13,6 +13,7 @@ This resource add a console for the client.
 * Own API and extensions to send messages to a players console.
 * Adds the possibility to see the server console output ingame.
 * Checks if the parameters of a command have the right type.
+* Outputs a warning if a command is used more than once.
 
 ## License
 
