@@ -104,27 +104,6 @@ class ClientConsole {
 		}
 	}
 
-	private runCommand(cmdStr: string): void {
-		if (cmdStr.length > 0) {
-			let cmd = cmdStr.split(" ")[0];
-			let parsArgs = cmdStr.substring(cmd.length).split(" ");
-			let args = [];
-			for (var i = 0; i < parsArgs.length; i++) {
-				if (parsArgs[i]) args[args.length] = parsArgs[i];
-			}
-			if (this._commandList.Contains(cmd)) {
-				for (var r = 0; r < this._commands.length; r++) {
-					var cmdArray = this._commands[r];
-					if (cmdArray[0] === cmd) {
-                        cmdArray[2](cmd, args);
-					}
-				}
-			}
-            else
-                this.wrongCommand(cmd);
-		}
-	}
-
 	private executeCommand(command: string): void {
 		API.triggerServerEvent("console_client_function_executeCommand", command);
 	}
