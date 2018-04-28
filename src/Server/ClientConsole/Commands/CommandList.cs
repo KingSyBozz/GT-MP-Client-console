@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using GrandTheftMultiplayer.Server.API;
 using GrandTheftMultiplayer.Server.Constant;
@@ -20,13 +21,22 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
             var newCommandInfoByGroup = newCommandInfos
                 .GroupBy(x => new {x.Command})
                 .Select(group => new { group.Key.Command, Count = group.Count()});
+            var multipleCommands = new List<string>();
             foreach (var groups in newCommandInfoByGroup)
             {
-                if (groups.Count > 1)
-                {
-                    API.shared.consoleOutput(LogCat.Warn, $"Command \"{groups.Command}\" exist {groups.Count} times in the resource \"{resource}\"");
-                }
+                if (groups.Count <= 1) continue;
+
+                API.shared.consoleOutput(LogCat.Warn, $"Command \"{groups.Command}\" exist {groups.Count} times in the resource \"{resource}\"");
+                if (!multipleCommands.Contains(groups.Command))
+                    multipleCommands.Add(groups.Command);
             }
+            var newCommandInfosPrepared = multipleCommands
+                .Select(multipleCommand => Array.IndexOf(newCommandInfos, newCommandInfos
+                .FirstOrDefault(x => x.Command == multipleCommand)))
+                .Aggregate(newCommandInfos, (current, indexOfMultipleCommand) => current
+                .Where((value, index) => index != indexOfMultipleCommand)
+                .ToArray());
+            newCommandInfos = newCommandInfosPrepared;
             foreach (var newCommand in newCommandInfos)
             {
                 commandList.Add(newCommand);

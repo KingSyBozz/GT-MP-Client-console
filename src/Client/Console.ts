@@ -173,7 +173,8 @@ class ClientConsole {
     }
 
     private wrongCommand(cmd: string) {
-        this.error(`Can't find the command "${cmd}". Type "${ConsoleConfig.helpCommand}" to print an overview of available commands`);
+        this.error(ConsoleConfig.commandError);
+        this.error(`Type "${ConsoleConfig.helpCommand}" to print an overview of available commands`);
     }
 
     // Console functions
@@ -241,7 +242,6 @@ class ClientConsole {
             for (var i = 0; i < this._lines.Count; i++) {
                 if (i >= start && i <= end) {
                     let index = (this._lines.Count - i) - 1;
-                    //API.drawText(this._lines[index], 2, (15 - (i % 16)) * 16, this._scale, 255, 255, 255, 255, 0, 0, false, false, 0);
                     drawText(this._lines[index], 2, (15 - (i % 16)) * 16, this._scale, 255, 255, 255, 255, 0, 0, false, false, 0);
                 }
             }
@@ -281,7 +281,7 @@ class ClientConsole {
         var result = [];
         if (input) {
             for (var i = 0; i < this._commandList.Count; i++) {
-                if (this._commandList[i].startsWith(input, 0)) // (as any) prevent error TS2339 (this._commandList[i] as any)
+                if (this._commandList[i].startsWith(input, 0))
                     result.push(this._commandList[i]);
             }
         }
@@ -410,6 +410,7 @@ class ClientConsole {
 // ----------------------------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------------------------
+
 function clamp(value: number, min: number, max: number): number {
     return (value < min) ? min : ((value > max) ? max : value);
 }
@@ -465,6 +466,9 @@ API.onServerEventTrigger.connect(
                     break;
                 case "console_client_function_enableConsole":
                     ConsoleConfig.enabled = args[0];
+                    break;
+                case "console_client_function_commandError":
+                    ConsoleConfig.commandError = args[0];
                     break;
             }
         }

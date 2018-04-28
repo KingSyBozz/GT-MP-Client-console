@@ -50,6 +50,10 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
         {
             API.triggerClientEvent(player, "console_client_function_registerCommands", commandList.GetAllCommands);
             API.triggerClientEvent(player, "console_client_function_enableConsole", ConsoleHandler.enableConsole);
+            var cmdErrormsg = CommandParser.GetCommandErrorMessage();
+            if (cmdErrormsg != null && CommandParser.commandErrorMessage != cmdErrormsg)
+                CommandParser.commandErrorMessage = cmdErrormsg;
+            API.triggerClientEvent(player, "console_client_function_commandError", CommandParser.commandErrorMessage);
         }
 
     }

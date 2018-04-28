@@ -2,4 +2,4 @@
 
 // Start
 /// <reference path="Console.ts" />
-/// <reference path="ConAPI.ts" />
+/// <reference path="ConsoleConfig.ts" />

@@ -12,6 +12,7 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
     internal class CommandParser
     {
         internal static Dictionary<string, CommandInfo> commandInfos = new Dictionary<string, CommandInfo>();
+        internal static string commandErrorMessage = "";
 
         private static object GetGameServer()
         {
@@ -28,7 +29,21 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
             var field = gameServer?.GetType().GetField("CommandHandler");
             return field?.GetValue(gameServer);
         }
-        
+
+        private static string GetAclErrorMessage()
+        {
+            var gameServer = GetGameServer();
+            var field = gameServer?.GetType().GetField("AclErrorCmd");
+            return field?.GetValue(gameServer).ToString();
+        }
+
+        internal static string GetCommandErrorMessage()
+        {
+            var gameServer = GetGameServer();
+            var field = gameServer?.GetType().GetField("ErrorCmd");
+            return field?.GetValue(gameServer).ToString();
+        }
+
         private static bool TryParseCommand(string argumentsString)
         {
             if (string.IsNullOrWhiteSpace(argumentsString))
@@ -64,13 +79,19 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
         {
             if (string.IsNullOrWhiteSpace(arguments))
                 return false;
+            var cmdErrormsg = GetCommandErrorMessage();
+            if (cmdErrormsg != null && commandErrorMessage != cmdErrormsg)
+            {
+                commandErrorMessage = cmdErrormsg;
+                API.shared.triggerClientEventForAll("console_client_function_commandError", commandErrorMessage);
+            }
             var command = arguments.Split(' ')[0];
             if (!CommandHandler.commandList.DoesCommandExist(command)) return false;
             if (API.shared.isAclEnabled())
             {
                 if (!API.shared.doesPlayerHaveAccessToCommand(player, command))
                 {
-                    player.ClientConsoleOutput(LogCat.Error, "You don't have have access to this command!");
+                    player.ClientConsoleOutput(LogCat.Error, "You don't have access to this command!");
                     return false;
                 }
             }
@@ -78,7 +99,7 @@ namespace SyBozz.GrandTheftMultiplayer.Server.ClientConsole.Commands
             {
                 if (CommandHandler.commandList.IsAclRequired(command))
                 {
-                    player.ClientConsoleOutput(LogCat.Error, "ACL must be running.");
+                    player.ClientConsoleOutput(LogCat.Error, GetAclErrorMessage());
                     return false;
                 }
             }

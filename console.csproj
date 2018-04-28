@@ -73,7 +73,7 @@
     <Content Include="tsconfig.json" />
     <Content Include="src\Client\Console.d.ts" />
     <Content Include="src\Client\Console.ts" />
-    <Content Include="src\Client\ConAPI.ts" />
+    <Content Include="src\Client\ConsoleConfig.ts" />
     <Content Include="src\Client\types-gt-mp\Declarations.d.ts" />
     <Content Include="src\Client\types-gt-mp\GrandTheftMultiplayer.Client.Contracts.d.ts" />
     <Content Include="src\Client\types-gt-mp\GrandTheftMultiplayer.Client.GUI.CEF.d.ts" />
